@@ -1,5 +1,6 @@
 package raquel.calculadora.api;
 
+import io.corp.calculator.TracerImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/calculadora")
 public class CalculadoraController {
 
+    private TracerImpl tracer = new TracerImpl();
 
     @Operation(summary = "Calcula la suma de dos números ")
     @ApiResponses(value={
@@ -20,6 +22,8 @@ public class CalculadoraController {
     })
     @GetMapping("/sumar")
     public Integer sumar() {
+
+        tracer.trace(1);
         return 1;
     }
 }
