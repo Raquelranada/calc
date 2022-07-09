@@ -7,6 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import raquel.calculadora.api.dto.OperacionDTO;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/calculadora")
@@ -21,9 +24,13 @@ public class CalculadoraController {
             @ApiResponse(responseCode = "409", description = "Error en la operación")
     })
     @GetMapping("/sumar")
-    public Integer sumar() {
+    public OperacionDTO sumar() {
 
-        tracer.trace(1);
-        return 1;
+        OperacionDTO operacionDTO = new OperacionDTO();
+        operacionDTO.setOperador(OperacionDTO.Operador.SUMA);
+        operacionDTO.setOperandos(Arrays.asList(1.7, 3.0));
+        operacionDTO.setResultado(4.7);
+        tracer.trace(operacionDTO);
+        return operacionDTO;
     }
 }
