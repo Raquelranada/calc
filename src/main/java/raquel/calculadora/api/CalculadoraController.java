@@ -16,6 +16,9 @@ import raquel.calculadora.service.OperacionSumaService;
 
 import java.util.List;
 
+/**
+ * API que publica las operaciones soportadas por la calculadora
+ */
 @RestController
 @RequestMapping("/calculadora")
 @RequiredArgsConstructor(onConstructor=@__(@Autowired))
@@ -24,6 +27,21 @@ public class CalculadoraController {
     private final OperacionSumaService sumaService;
     private final OperacionRestaService restaService;
 
+    /**
+     * gestiona las excepciones capturadas en las llamadas a los servicios
+     * @param ex Excepción
+     * @return {@link ResponseEntity} con el mensaje de la excepcion
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public final ResponseEntity handleAllExceptions(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    /**
+     * Calcula la suma de una lista de números
+     * @param sumandos Operandos
+     * @return {@link ResponseEntity} devuelve el resultado en un objeto del tipo {@link OperacionDTO}
+     */
     @Operation(summary = "Calcula la suma de una lista de números ")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Operación efectuada correctamente"),
@@ -38,14 +56,16 @@ public class CalculadoraController {
             )
             @RequestBody List<Double> sumandos
     ) {
-        try {
-            OperacionDTO resultado = sumaService.calcular(sumandos);
-            return ResponseEntity.ok().body(resultado);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+        OperacionDTO resultado = sumaService.calcular(sumandos);
+        return ResponseEntity.ok().body(resultado);
+
     }
 
+    /**
+     * Calcula la resta de una lista de números
+     * @param operandos Operandos
+     * @return {@link ResponseEntity} devuelve el resultado en un objeto del tipo {@link OperacionDTO}
+     */
     @Operation(summary = "Calcula la resta de una lista de números ")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Operación efectuada correctamente"),
@@ -60,11 +80,7 @@ public class CalculadoraController {
             )
             @RequestBody List<Double> operandos
     ) {
-        try {
-            OperacionDTO resultado = restaService.calcular(operandos);
-            return ResponseEntity.ok().body(resultado);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+        OperacionDTO resultado = restaService.calcular(operandos);
+        return ResponseEntity.ok().body(resultado);
     }
 }
