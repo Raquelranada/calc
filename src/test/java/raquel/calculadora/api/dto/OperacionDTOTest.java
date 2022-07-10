@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OperationDTOTest {
+public class OperacionDTOTest {
     @Mock
     private static String sinDefinir = "El operador no está definido ni tiene operandos";
     private static String restaSinOperandos = "La operación - no tiene operandos";
@@ -20,18 +20,18 @@ public class OperationDTOTest {
         OperacionDTO operacionDTO = new OperacionDTO();
         assertEquals(sinDefinir, operacionDTO.toString());
 
-        operacionDTO.setOperador(OperacionDTO.Operador.RESTA);
+        operacionDTO.setOperador(Operador.RESTA);
         assertEquals(restaSinOperandos, operacionDTO.toString());
 
         operacionDTO.setOperador(null);
         operacionDTO.setOperandos(Arrays.asList(2.0, 3.5));
         assertEquals(sinOperador, operacionDTO.toString());
 
-        operacionDTO.setOperador(OperacionDTO.Operador.SUMA);
+        operacionDTO.setOperador(Operador.SUMA);
         operacionDTO.setOperandos(Arrays.asList(2.0, 3.5));
         assertEquals(sinResultado, operacionDTO.toString());
 
-        operacionDTO.setOperador(OperacionDTO.Operador.SUMA);
+        operacionDTO.setOperador(Operador.SUMA);
         operacionDTO.setOperandos(Arrays.asList(2.0, 3.5));
         operacionDTO.setResultado(5.5);
         assertEquals("2.0 + 3.5  =  5.5", operacionDTO.toString());

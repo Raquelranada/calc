@@ -1,36 +1,70 @@
 package raquel.calculadora.api;
 
-import io.corp.calculator.TracerImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import raquel.calculadora.api.dto.OperacionDTO;
+import raquel.calculadora.service.OperacionRestaService;
+import raquel.calculadora.service.OperacionSumaService;
 
-import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/calculadora")
+@RequiredArgsConstructor(onConstructor=@__(@Autowired))
 public class CalculadoraController {
 
-    private TracerImpl tracer = new TracerImpl();
+    private final OperacionSumaService sumaService;
+    private final OperacionRestaService restaService;
 
-    @Operation(summary = "Calcula la suma de dos números ")
+    @Operation(summary = "Calcula la suma de una lista de números ")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Operación efectuada correctamente"),
             @ApiResponse(responseCode = "401", description = "Operación no autorizada"),
             @ApiResponse(responseCode = "409", description = "Error en la operación")
     })
-    @GetMapping("/sumar")
-    public OperacionDTO sumar() {
+    @PostMapping("/sumar")
+    public ResponseEntity sumar(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Operandos" , required = true,
+                    content = @Content(schema = @Schema(implementation = List.class))
+            )
+            @RequestBody List<Double> sumandos
+    ) {
+        try {
+            OperacionDTO resultado = sumaService.calcular(sumandos);
+            return ResponseEntity.ok().body(resultado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
 
-        OperacionDTO operacionDTO = new OperacionDTO();
-        operacionDTO.setOperador(OperacionDTO.Operador.SUMA);
-        operacionDTO.setOperandos(Arrays.asList(1.7, 3.0));
-        operacionDTO.setResultado(4.7);
-        tracer.trace(operacionDTO);
-        return operacionDTO;
+    @Operation(summary = "Calcula la resta de una lista de números ")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Operación efectuada correctamente"),
+            @ApiResponse(responseCode = "401", description = "Operación no autorizada"),
+            @ApiResponse(responseCode = "409", description = "Error en la operación")
+    })
+    @PostMapping("/restar")
+    public ResponseEntity restar(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Operandos" , required = true,
+                    content = @Content(schema = @Schema(implementation = List.class))
+            )
+            @RequestBody List<Double> operandos
+    ) {
+        try {
+            OperacionDTO resultado = restaService.calcular(operandos);
+            return ResponseEntity.ok().body(resultado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 }
