@@ -15,6 +15,12 @@ public class OperacionDTO {
 
     private Double resultado;
 
+    public OperacionDTO(Operador operador, List<Double> operandos, Double resultado) {
+        this.operador = operador;
+        this.operandos = operandos;
+        this.resultado = resultado;
+    }
+
     @Override
     public String toString() {
         if(CollectionUtils.isEmpty(operandos) && operador == null) {

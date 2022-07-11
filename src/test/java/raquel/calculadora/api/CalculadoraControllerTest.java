@@ -3,13 +3,13 @@ package raquel.calculadora.api;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import raquel.calculadora.api.dto.OperacionDTO;
+import raquel.calculadora.api.dto.OperacionDTOBuilder;
 import raquel.calculadora.api.dto.Operador;
 
 
@@ -47,10 +47,11 @@ public class CalculadoraControllerTest {
 
     @Test
     public void sumarTestOK(){
-        OperacionDTO operacionDTO = new OperacionDTO();
-        operacionDTO.setOperador(Operador.SUMA);
-        operacionDTO.setOperandos(Arrays.asList(1.0, 2.7));
-        operacionDTO.setResultado(3.7);
+        OperacionDTO operacionDTO = new OperacionDTOBuilder()
+                .withOperador(Operador.SUMA)
+                .withOperandos(Arrays.asList(1.0, 2.7))
+                .withResultado(3.7)
+                .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth("test","pass");
@@ -65,10 +66,11 @@ public class CalculadoraControllerTest {
 
     @Test
     public void restarTestOK(){
-        OperacionDTO operacionDTO = new OperacionDTO();
-        operacionDTO.setOperador(Operador.RESTA);
-        operacionDTO.setOperandos(Arrays.asList(10.0, 1.6));
-        operacionDTO.setResultado(8.4);
+        OperacionDTO operacionDTO = new OperacionDTOBuilder()
+                .withOperador(Operador.RESTA)
+                .withOperandos(Arrays.asList(10.0, 1.6))
+                .withResultado(8.4)
+                .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth("test","pass");

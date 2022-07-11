@@ -3,6 +3,7 @@ package raquel.calculadora.service;
 import org.springframework.stereotype.Service;
 import raquel.calculadora.api.ValidacionException;
 import raquel.calculadora.api.dto.OperacionDTO;
+import raquel.calculadora.api.dto.OperacionDTOBuilder;
 import raquel.calculadora.api.dto.Operador;
 
 import java.util.List;
@@ -44,10 +45,11 @@ public class OperacionSumaService extends AbstractOperacionService{
     private OperacionDTO suma(List<Double> operandos) {
         Double resultado = operandos.stream().reduce(0.0, Double::sum);
 
-        OperacionDTO operacionDTO = new OperacionDTO();
-        operacionDTO.setOperador(operador);
-        operacionDTO.setOperandos(operandos);
-        operacionDTO.setResultado(resultado);
+        OperacionDTO operacionDTO = new OperacionDTOBuilder()
+                .withOperador(operador)
+                .withOperandos(operandos)
+                .withResultado(resultado)
+                .build();
 
         trace(operacionDTO);
         return operacionDTO;

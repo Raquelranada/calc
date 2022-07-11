@@ -17,7 +17,7 @@ public class OperacionDTOTest {
     @Test
     public void testToString(){
 
-        OperacionDTO operacionDTO = new OperacionDTO();
+        OperacionDTO operacionDTO = new OperacionDTOBuilder().build();
         assertEquals(sinDefinir, operacionDTO.toString());
 
         operacionDTO.setOperador(Operador.RESTA);

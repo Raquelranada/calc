@@ -3,10 +3,10 @@ package raquel.calculadora.service;
 import org.springframework.stereotype.Service;
 import raquel.calculadora.api.ValidacionException;
 import raquel.calculadora.api.dto.OperacionDTO;
+import raquel.calculadora.api.dto.OperacionDTOBuilder;
 import raquel.calculadora.api.dto.Operador;
 
 import java.util.List;
-import java.util.function.DoubleBinaryOperator;
 
 /**
  * Servicio que implementa la operación Resta
@@ -45,10 +45,11 @@ public class OperacionRestaService extends AbstractOperacionService{
     private OperacionDTO resta(List<Double> operandos) {
         Double resultado = operandos.stream().reduce((op1, op2) -> op1 - op2 ).get();
 
-        OperacionDTO operacionDTO = new OperacionDTO();
-        operacionDTO.setOperador(operador);
-        operacionDTO.setOperandos(operandos);
-        operacionDTO.setResultado(resultado);
+        OperacionDTO operacionDTO = new OperacionDTOBuilder()
+                .withOperador(operador)
+                .withOperandos(operandos)
+                .withResultado(resultado)
+                .build();
 
         trace(operacionDTO);
         return operacionDTO;
