@@ -25,7 +25,7 @@ public abstract class AbstractOperacionService {
     /**
      * Inicializa el servicio instanciando un objeto de la clase TracerImpl
      * y seteando el tipo de operación soportada
-     * @param operador
+     * @param operador operación soportada por la implementación
      */
     public AbstractOperacionService(Operador operador) {
         this.operador = operador;
