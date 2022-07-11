@@ -1,6 +1,7 @@
 package raquel.calculadora.service;
 
 import io.corp.calculator.TracerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import raquel.calculadora.api.ValidacionException;
 import raquel.calculadora.api.dto.OperacionDTO;
@@ -16,6 +17,7 @@ import java.util.List;
 public abstract class AbstractOperacionService {
 
     //traceador
+    @Autowired
     private TracerImpl tracer;
     //operación soportada
     protected final Operador operador;
@@ -26,7 +28,6 @@ public abstract class AbstractOperacionService {
      * @param operador
      */
     public AbstractOperacionService(Operador operador) {
-        this.tracer = new TracerImpl();
         this.operador = operador;
     }
 

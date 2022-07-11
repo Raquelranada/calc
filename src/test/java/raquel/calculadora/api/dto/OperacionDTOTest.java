@@ -1,14 +1,12 @@
 package raquel.calculadora.api.dto;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OperacionDTOTest {
-    @Mock
     private static String sinDefinir = "El operador no está definido ni tiene operandos";
     private static String restaSinOperandos = "La operación - no tiene operandos";
     private static String sinOperador = "El operador no está definido";
