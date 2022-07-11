@@ -1,6 +1,6 @@
 # Calculadora básica
 
-Microservicio que expone un API para realizar operaciones aritméticas (por ahora suma resta)
+Microservicio que expone un API para realizar operaciones aritméticas (por ahora suma y resta)
 
 ## Ejecución de los tests y reporte
 Se ha incluído un plugin para generar un reporte de cobertura de los test. 
@@ -35,7 +35,7 @@ target/calculadora-0.0.1-SNAPSHOT-sources.jar
 
 ## Ejecución de la aplicación 
 ```
-java -jar target/alculadora-0.0.1-SNAPSHOT.jar
+java -jar target/calculadora-0.0.1-SNAPSHOT.jar
 ```
 
 ## API
@@ -91,6 +91,5 @@ La respuesta obtenida es un objecto json:
       1.0
    ],
    "resultado":13.5
-}esultado":6.8
 }
 ```
