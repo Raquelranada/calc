@@ -27,9 +27,13 @@ class OperacionSumaServiceTest {
     OperacionSumaService sumaService;
 
     @Test
-    void calcular_ExcepcionesValidacion() {
-        assertThrows(ValidacionException.class, () -> {sumaService.calcular(Arrays.asList(null, 2.7));});
+    void calcular_ExcepcionValidacion_parametro_nulo() {
         assertThrows(ValidacionException.class, () -> {sumaService.calcular(null);});
+    }
+
+    @Test
+    void calcular_ExcepcionValidacion_operando_nulo() {
+        assertThrows(ValidacionException.class, () -> {sumaService.calcular(Arrays.asList(null, 2.7));});
     }
 
     @Test

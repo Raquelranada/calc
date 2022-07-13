@@ -28,12 +28,18 @@ class OperacionRestaServiceTest {
     OperacionRestaService restaService;
 
     @Test
-    void calcular_ExcepcionesValidacion() {
-        assertThrows(ValidacionException.class, () -> {
-            restaService.calcular(Arrays.asList(null, 212.1));});
+    void calcular_ExcepcionValidacion_parametro_nulo() {
         assertThrows(ValidacionException.class, () -> {
             restaService.calcular(null);});
     }
+
+
+    @Test
+    void calcular_ExcepcionValidacion_operando_nulo() {
+        assertThrows(ValidacionException.class, () -> {
+            restaService.calcular(Arrays.asList(null, 212.1));});
+    }
+
 
     @Test
     void calcular(){
