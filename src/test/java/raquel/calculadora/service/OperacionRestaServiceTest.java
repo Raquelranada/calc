@@ -37,14 +37,14 @@ class OperacionRestaServiceTest {
 
     @Test
     void calcular(){
-        OperacionDTO suma = restaService.calcular(Arrays.asList(10.0, 2.7));
+        OperacionDTO resta = restaService.calcular(Arrays.asList(10.0, 2.7));
         OperacionDTO operacionDTO = new OperacionDTOBuilder()
                 .withOperador(Operador.RESTA)
                 .withOperandos(Arrays.asList(10.0, 2.7))
                 .withResultado(7.3)
                 .build();
 
-        assertEquals(suma, operacionDTO);
+        assertEquals(resta, operacionDTO);
         verify(tracer, atLeastOnce()).trace(any(OperacionDTO.class));
         verify(tracer, never()).trace(any(ValidacionException.class));
     }
